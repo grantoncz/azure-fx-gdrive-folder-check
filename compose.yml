@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  azure-functions:
+    build: .
+    ports:
+      - "7071:7071"
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - AzureWebJobsStorage=UseDevelopmentStorage=true
+      - FUNCTIONS_WORKER_RUNTIME=node
+    depends_on:
+      - azurite
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
