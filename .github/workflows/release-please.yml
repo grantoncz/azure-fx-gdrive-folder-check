@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: release-please
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate a token
+        id: generate-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.GRANTON_CICD_APP_ID }}
+          private-key: ${{ secrets.GRANTON_CICD_APP_SECRET }}
+      - uses: google-github-actions/release-please-action@v4
+        with:
+          release-type: simple
+          package-name: release-please-action
+          token: ${{ steps.generate-token.outputs.token }}
+          target-branch: main

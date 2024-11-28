@@ -1,0 +1,34 @@
+version: 2
+registries:
+  nuget-azure:
+    type: nuget-feed
+    url: https://pkgs.dev.azure.com/granton/Andromeda/_packaging/NuGetPackages/nuget/v3/index.json
+    username: PAT
+    password: ${{secrets.DEVOPS_PACKAGES_PAT}}
+    replaces-base: true
+
+updates:
+  # Enable version updates for NuGet dependencies
+  - package-ecosystem: "nuget"
+    groups:
+      dotnet-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "Microsoft.*"
+          - "System.*"
+          - "Google.Apis.*"
+      js-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+    registries: "*"
+    directory: "/src"
+    commit-message:
+      prefix: "fix"
+    # Check for updates once a week
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "grantoncz/ai-team"
+    assignees:
+      - "mariekostenkova"
