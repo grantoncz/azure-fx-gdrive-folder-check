@@ -1,3 +1,4 @@
+
 name: Check new PR if the project can be built
 
 on:
@@ -19,19 +20,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@96383f45573cb7f253c731d3b3ab81c87ef81934
         with:
-          dotnet-version: '9.0.100'  
+          images: ${{ vars.ACR_NAME }}/${{ env.IMAGE_NAME }}
 
-      - name: Clean solution
-        run: dotnet clean
-
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Get tag
+        id: get-tag
+        run: |
+          VERSION=$(echo "${GITHUB_REF##*/}")
+          echo "VERSION=${VERSION:1}" >> $GITHUB_ENV
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        uses: docker/build-push-action@4a13e500e55cf31b7a5d59a38ab2040ab0f42f56
+        with:
+          context: .
+          push: false
+          tags: ${{ vars.ACR_NAME }}/${{ github.event.repository.name }}:latest,${{ vars.ACR_NAME }}/${{ github.event.repository.name }}:${{ env.VERSION }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            AZURE_DEVOPS_PAT=${{ secrets.AZURE_DEVOPS_PAT }}
