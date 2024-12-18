@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/grantoncz/azure-fx-gdrive-folder-check/compare/v1.0.0...v1.0.1) (2024-12-18)
+
+
+### Miscellaneous Chores
+
+* release 1.0.1 ([e140351](https://github.com/grantoncz/azure-fx-gdrive-folder-check/commit/e1403510690fee3f255f938bbe715ed5e3289d96))
+
 ## 1.0.0 (2024-12-18)
 
 
