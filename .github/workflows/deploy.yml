@@ -57,4 +57,4 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az storage blob upload --file ./src/${{ github.event.repository.name }}-${{ env.VERSION }}.zip --account-name cicdfuncapptest --container-name func-releases --auth-mode login
+            az storage blob upload --file ./${{ github.event.repository.name }}-${{ env.VERSION }}.zip --account-name sagrtfunc --container-name func-releases --auth-mode login
