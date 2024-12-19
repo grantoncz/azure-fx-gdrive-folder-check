@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7](https://github.com/grantoncz/azure-fx-gdrive-folder-check/compare/v1.0.6...v1.0.7) (2024-12-19)
+
+
+### Bug Fixes
+
+* fix for .NET deploy ([8bede4f](https://github.com/grantoncz/azure-fx-gdrive-folder-check/commit/8bede4f765ea50b0403a459e3705bf85b2323667))
+
 ## [1.0.6](https://github.com/grantoncz/azure-fx-gdrive-folder-check/compare/v1.0.5...v1.0.6) (2024-12-19)
 
 
