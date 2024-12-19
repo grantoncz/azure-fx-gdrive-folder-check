@@ -16,6 +16,7 @@ jobs:
   build-and-push-image:
     name: Build app and push Docker image
     runs-on: ubuntu-latest
+    environment: prod
 
     steps:
       - name: Checkout repository
